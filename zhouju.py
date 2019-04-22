@@ -12,5 +12,17 @@ def get_model(table):
     return model_list
 
 
+def get_wheelbase():
+    pass
+
+
+def cal_level(wheelbase):
+    pass
+
+
+def update(table, wheelbase, leval, model_name):
+    sql = "UPDATE %s SET wheelbase = '%s',leval= '%s' WHERE model_name = '%s'" % (table, wheelbase, leval, model_name)
+
+
 model = get_model("python_test")
-print(model[0])
+print(len(model))
