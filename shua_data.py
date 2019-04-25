@@ -2,6 +2,8 @@ from crawl import check_link, get_contents
 from dbutil import get_conn, insert_many
 import sys
 
+from setting import host, password, user_name, db_name, table_name
+
 """
 爬工信部数据，去重，直接刷入mysql数据库
 """
@@ -45,13 +47,12 @@ def prepare_list(table_body):
     return insert_list
 
 
-def insert_mysql():
-    # url = sys.argv[1]
-    url = "http://123.127.164.29:18082/CVT/Jsp/zjgl/nerds/201812.html"
+def insert_mysql(pmonth='201812'):
+    url = "http://123.127.164.29:18082/CVT/Jsp/zjgl/nerds/%s.html" % pmonth
     rs = check_link(url)
     table_body = get_contents(rs)
-    conn = get_conn("192.168.6.105", "root", "root", "bg_analysis")
-    insert_sql = prepare_sql("python_test")
+    conn = get_conn(host, user_name, password, db_name)
+    insert_sql = prepare_sql(table_name)
     insert_list = prepare_list(table_body)
     if conn is None:
         print("数据库链接失败")

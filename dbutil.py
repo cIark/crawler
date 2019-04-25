@@ -65,6 +65,17 @@ def find_models(conn, find_sql):
         return [row[0] for row in results]
 
 
+def update(conn, sql):
+    cursor = conn.cursor()
+    try:
+        cursor.execute(sql)
+        conn.commit()
+    except Exception as e:
+        print(e)
+        print("更新数据失败")
+        conn.rollback()
+
+
 # 保存到本地方法
 # 保存资源
 def save_contents(table_body):
