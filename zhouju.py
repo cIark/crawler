@@ -67,7 +67,8 @@ def level_run():
     if conn is None:
         print("数据库链接失败")
         sys.exit(1)
-    sql = "select model_name,wheelbase from %s where level='' and wheelbase!='' and vehicle_type='纯电动轿车';" % table_name
+    sql = "select model_name,wheelbase from %s where level='' and wheelbase!='' and vehicle_type like '%%轿车';" \
+          % table_name
     result_list = dbutil.find_many(conn, sql)
     level_count = 0
     if result_list == -1:
@@ -85,4 +86,4 @@ def level_run():
 
 
 if __name__ == '__main__':
-    wheelbase_run()
+    level_run()

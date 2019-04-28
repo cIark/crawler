@@ -22,6 +22,25 @@ def check_link(url):
         return -1
 
 
+def get_power_type(vehicle_type):
+    if vehicle_type[0:3] == '纯电动':
+        return 'BEV'
+    elif vehicle_type[0:4] == '燃料电池':
+        return 'FCV'
+    elif vehicle_type[0:4] == '混合动力':
+        return 'HEV'
+    elif vehicle_type[0:2] == '插电':
+        return 'PHEV'
+    elif vehicle_type[0:2] == '插电':
+        return 'PHEV'
+    elif vehicle_type[0:7] == '甲醇重整制氢燃':
+        return 'FCV'
+    elif vehicle_type[0:7] == '平头纯电动':
+        return 'BEV'
+    else:
+        return '未知'
+
+
 def get_contents(page_text):
     table_body = []
     if page_text == -1:
@@ -42,6 +61,7 @@ def get_contents(page_text):
             table_header['生产企业'] = re.sub(r'、|[0-9]', '', title[0])
             table_header['品牌'] = title[1]
             table_header['车辆类型'] = "".join(i for i in title[2] if ord(i) > 256)
+            table_header['动力类型'] = get_power_type(table_header['车辆类型'])
 
             trs = table.find_all('tr')
             # num 表示每一个表配置ID个数，一个配置ID又对应一个tableLine，即写入CSV 的 一行
@@ -51,7 +71,7 @@ def get_contents(page_text):
             table_line = [{}] * num
             for i in range(num):
                 table_line[i] = table_header.copy()
-                table_line[i]['配置ID'] = trs[0].find_all('td')[(i+1)].get_text().split('ID：')[1].strip()
+                table_line[i]['配置ID'] = trs[0].find_all('td')[(i + 1)].get_text().split('ID：')[1].strip()
                 for tr in trs:
                     ui = []
                     for td in tr:
@@ -62,3 +82,7 @@ def get_contents(page_text):
                         table_line[i][ui[1]] = ui[i * 2 + 3]
                 table_body.append(table_line[i])
         return table_body
+
+
+if __name__ == '__main__':
+    print(get_power_type('纯电动城市客车'))

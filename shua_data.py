@@ -21,7 +21,7 @@ t_map = {'model_name': '型号', 'manufacture': '生产企业', 'brand': '品牌
          'fuel_l100km2': '燃料消耗量（L/100km，B状态）', 'fuel_cell_manufacture': '燃料电池系统生产企业（主要包含电堆）',
          'fuel_cell_power_rating': '燃料电池系统额定功率（kW）', 'fuel_cell_max_power': '燃料电池系统峰值功率（kW）',
          'battery_weight_rate': '电池系统总质量占整车整备质量比例（%）', 'drive_range_ev': '纯电动模式下续驶里程（km，等速法）',
-         'fast_charging_ratio': '快充倍率', 'wheelbase': '轴距'
+         'fast_charging_ratio': '快充倍率', 'wheelbase': '轴距', 'power_type': '动力类型'
          }
 
 
