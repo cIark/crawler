@@ -1,4 +1,4 @@
-import MySQLdb
+import pymysql
 import csv
 
 
@@ -12,7 +12,7 @@ def get_conn(host, user, passwd, db):
     :return:返回链接对象，失败返回空
     """
     try:
-        conn = MySQLdb.connect(host, user, passwd, db, charset='utf8')
+        conn = pymysql.connect(host, user, passwd, db, charset='utf8')
         return conn
     except Exception as e:
         print(e)

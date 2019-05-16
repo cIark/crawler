@@ -31,8 +31,6 @@ def get_power_type(vehicle_type):
         return 'HEV'
     elif vehicle_type[0:2] == '插电':
         return 'PHEV'
-    elif vehicle_type[0:2] == '插电':
-        return 'PHEV'
     elif vehicle_type[0:7] == '甲醇重整制氢燃':
         return 'FCV'
     elif vehicle_type[0:7] == '平头纯电动':
@@ -80,6 +78,14 @@ def get_contents(page_text):
                         ui.append(str2)
                     if str.strip(ui[1]) != '' and ui[1] != None:
                         table_line[i][ui[1]] = ui[i * 2 + 3]
+                if '' != table_line[i].get("续驶里程（km，工况法）", ''):
+                    table_line[i]["续驶里程（km，总）"] = table_line[i].get("续驶里程（km，工况法）", '')
+                elif '' != table_line[i].get("续驶里程（km，等速法）", 0):
+                    table_line[i]["续驶里程（km，总）"] = table_line[i].get("续驶里程（km，等速法）", '')
+                elif '' != table_line[i].get("纯电动模式下续驶里程（km，等速法）", 0):
+                    table_line[i]["续驶里程（km，总）"] = table_line[i].get("纯电动模式下续驶里程（km，等速法）", '')
+                else:
+                    table_line[i]["续驶里程（km，总）"] = table_line[i].get("纯电动模式下续驶里程（km，工况法）", '')
                 table_body.append(table_line[i])
         return table_body
 

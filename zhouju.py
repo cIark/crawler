@@ -86,4 +86,5 @@ def level_run():
 
 
 if __name__ == '__main__':
+    wheelbase_run()
     level_run()
